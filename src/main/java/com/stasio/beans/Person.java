@@ -1,6 +1,8 @@
 package com.stasio.beans;
 
 
+import org.hibernate.LazyInitializationException;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -39,7 +41,6 @@ public class Person {
     private String idNumber;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "person")
     private Set <Credit> credit = new HashSet<>();
-
 
     public String getIdNumber() {
         return idNumber;
@@ -105,6 +106,16 @@ public class Person {
         this.credit = credit;
     }
 
+    public Integer  quantityCredit(){
+        Integer i;
+        try {
+            i = credit.size();
+        }catch (LazyInitializationException e){
+            return 0;
+        }
+        return i;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -116,6 +127,10 @@ public class Person {
                 ", passportWords='" + passport + '\'' +
                 ", idNumber=" + idNumber +
                 '}';
+    }
+
+    public String getFullName(){
+        return getFirstName()+" "+getMidleName()+" "+getLastName();
     }
 
     public Person() {

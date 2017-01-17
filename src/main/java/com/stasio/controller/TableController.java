@@ -3,19 +3,16 @@ package com.stasio.controller;
 import com.stasio.beans.Person;
 import com.stasio.dao.PersonDao;
 import com.stasio.tools.MDData;
+import com.stasio.tools.NewWindow;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
@@ -34,7 +31,7 @@ public class TableController {
     }
 
     @FXML
-    TableView<Person> tableView;
+    TableView<Person> tablePerson;
     @FXML
     TableColumn<Person, String> firstName;
     @FXML
@@ -48,7 +45,7 @@ public class TableController {
     @FXML
     TableColumn<Person, LocalDate> birthday;
     @FXML
-    TableColumn<Person, String> credits;
+    TableColumn<Person, Integer> credits;
 
     @FXML
     public void initialize() {
@@ -59,13 +56,13 @@ public class TableController {
         passport.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPassport()));
         idNumber.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getIdNumber()));
         birthday.setCellValueFactory(data -> new SimpleObjectProperty<LocalDate>(LocalDate.of(data.getValue().getBirthday().getYear(), data.getValue().getBirthday().getMonth(), data.getValue().getBirthday().getDayOfMonth())));
-//        credits.setCellValueFactory(tools -> new SimpleObjectProperty<String>(Integer.toString(tools.getValue().getCredit().size())));
-        tableView.setItems(list);
+        credits.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().quantityCredit()));
+        tablePerson.setItems(list);
     }
 
     @FXML
     public void refresh() {
-        tableView.getItems().removeAll(list);
+        tablePerson.getItems().removeAll(list);
         load();
     }
 
@@ -79,19 +76,7 @@ public class TableController {
 
     @FXML
     public void newPerson(ActionEvent event) {
-        try {
-            Stage window = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/view/newPerson.fxml"));
-            window.setTitle("Новый клиент");
-            window.setResizable(false);
-            window.setScene(new Scene(root));
-            window.initModality(Modality.WINDOW_MODAL);
-            window.initOwner(((Node) event.getSource()).getScene().getWindow());
-            window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        new NewWindow(event,"/view/newPerson.fxml","Новый клиент");
     }
 
     public void load() {
@@ -99,6 +84,18 @@ public class TableController {
         PersonDao dao = new PersonDao(mdData.getManager());
         list.addAll(dao.getAll());
         mdData.stopEM();
+    }
+
+    public void btnInfo(ActionEvent event){
+        Person selectedPerson = tablePerson.getSelectionModel().getSelectedItem();
+        if(selectedPerson!=null){
+            mdData.setTempPerson(selectedPerson);
+            new NewWindow(event,"/view/infoPerson.fxml","Информация о клиенте");
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING,"Выберете клиента");
+            alert.show();
+        }
+
     }
 
     public Person getPerson(int i) {

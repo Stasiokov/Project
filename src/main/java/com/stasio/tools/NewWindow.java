@@ -1,7 +1,11 @@
 package com.stasio.tools;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,16 +16,26 @@ import java.io.IOException;
  */
 public class NewWindow extends Stage {
 
-    private String path;
+    private String resources;
+    private String title;
+    private ActionEvent event;
 
-    public NewWindow (String path){
-        this.path=path;
+    public NewWindow (ActionEvent event,String resources,String title){
+        this.resources =resources;
+        this.title = title;
+        this.event=event;
         start();
     }
 
     public void start(){
         try {
-            setScene(new Scene(FXMLLoader.load(getClass().getResource(path))));
+            Parent root=FXMLLoader.load(getClass().getResource(resources));
+            setTitle(title);
+            setResizable(false);
+            setScene(new Scene(root));
+            initModality(Modality.WINDOW_MODAL);
+            initOwner(((Node) event.getSource()).getScene().getWindow());
+            show();
         } catch (IOException e) {
             e.printStackTrace();
         }

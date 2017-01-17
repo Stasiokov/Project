@@ -13,9 +13,10 @@ import javax.persistence.Persistence;
  */
 public class MDData {
 
-    public static MDData mdData = new MDData();
+    private final static MDData mdData = new MDData();
     private  EntityManagerFactory factory;
     private  EntityManager manager;
+    private Person tempPerson;
     private ObservableList<Person> list = FXCollections.observableArrayList();
 
     private MDData(){
@@ -48,5 +49,13 @@ public class MDData {
 
     public void setList(ObservableList<Person> list) {
         this.list = list;
+    }
+
+    public Person getTempPerson() {
+        return tempPerson;
+    }
+
+    public void setTempPerson(Person tempPerson) {
+        this.tempPerson = tempPerson;
     }
 }

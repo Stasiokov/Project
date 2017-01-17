@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stasio.controller.AddController">
+   <children>
+      <Button fx:id="ok" layoutX="14.0" layoutY="181.0" mnemonicParsing="false" onAction="#clickOk" text="Готово" />
+      <VBox layoutX="114.0" layoutY="14.0" prefWidth="100.0">
+         <children>
+            <TextField fx:id="firstName" />
+            <TextField fx:id="midleName" />
+            <TextField fx:id="lastName" />
+            <TextField fx:id="idNumber" />
+            <TextField fx:id="passport" prefHeight="25.0" prefWidth="149.0" />
+            <DatePicker fx:id="birthday" prefHeight="25.0" />
+         </children>
+      </VBox>
+      <VBox layoutX="14.0" layoutY="14.0" prefWidth="100.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="24.0" text="Имя" />
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="55.0" text="Отчество" />
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="60.0" text="Фамилия" />
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="60.0" text="Индиф.код" />
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="Данные паспорта" />
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="85.0" text="Дата рождения" />
+         </children>
+      </VBox>
+      <Button fx:id="btnClose" layoutX="148.0" layoutY="181.0" mnemonicParsing="false" onAction="#close" text="Отмена" />
+   </children>
+</AnchorPane>

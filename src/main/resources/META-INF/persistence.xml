@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="person-unit" transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="current_session_context_class" value="thread" />
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+            <property name="hibernate.connection.username" value="test" />
+            <property name="hibernate.connection.password" value="123456" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://127.0.0.1:5432/db-bch" />
+        </properties>
+    </persistence-unit>
+
+</persistence>

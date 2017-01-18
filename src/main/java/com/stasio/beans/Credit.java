@@ -102,4 +102,14 @@ public class Credit {
 
     public Credit() {
     }
+
+    public Credit(Person person, int idCredit, long sumStartCredit, long sumBalance, LocalDate dateStart, LocalDate dateClose, String currency) {
+        this.idCredit = idCredit;
+        this.sumStartCredit = sumStartCredit;
+        this.sumBalance = sumBalance;
+        this.dateStart = dateStart;
+        this.dateClose = dateClose;
+        this.currency = currency;
+        this.person = person;
+    }
 }

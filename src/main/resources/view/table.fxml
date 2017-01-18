@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stasio.controller.TableController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stasio.controller.TableController">
    <children>
       <TableView fx:id="tablePerson" layoutX="92.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
         <columns>
@@ -22,5 +22,6 @@
       <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#refresh" text="Обновить" />
       <Button layoutX="932.0" layoutY="561.0" mnemonicParsing="false" onAction="#btnInfo" text="Инфо пользователя" />
       <Button layoutX="85.0" layoutY="561.0" mnemonicParsing="false" onAction="#loadDate" text="addPerson" />
+      <Button layoutX="158.0" layoutY="561.0" mnemonicParsing="false" onAction="#testCredit" text="addTestCredit" />
    </children>
 </AnchorPane>

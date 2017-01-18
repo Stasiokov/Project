@@ -1,6 +1,8 @@
 package com.stasio.controller;
 
+import com.stasio.beans.Credit;
 import com.stasio.beans.Person;
+import com.stasio.dao.CreditDao;
 import com.stasio.dao.PersonDao;
 import com.stasio.tools.MDData;
 import com.stasio.tools.NewWindow;
@@ -56,12 +58,13 @@ public class TableController {
         passport.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPassport()));
         idNumber.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getIdNumber()));
         birthday.setCellValueFactory(data -> new SimpleObjectProperty<LocalDate>(LocalDate.of(data.getValue().getBirthday().getYear(), data.getValue().getBirthday().getMonth(), data.getValue().getBirthday().getDayOfMonth())));
-        credits.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().quantityCredit()));
+        credits.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().quantityCredit())); // ДОРАБОТАТЬ
         tablePerson.setItems(list);
     }
 
     @FXML
     public void refresh() {
+//        System.out.println(list.get(2).getCredit().size()+"  "+list.get(2).getFirstName());
         tablePerson.getItems().removeAll(list);
         load();
     }
@@ -98,13 +101,27 @@ public class TableController {
 
     }
 
-    public Person getPerson(int i) {
-        mdData.startEM();
-        PersonDao dao = new PersonDao(mdData.getManager());
-        Person person = dao.get(i);
-        mdData.stopEM();
-        return person;
+    public void testCredit(){
+        Person selectedPerson = tablePerson.getSelectionModel().getSelectedItem();
+        if(selectedPerson!=null){
+            mdData.setTempPerson(selectedPerson);
+            mdData.startEM();
+            CreditDao dao = new CreditDao(mdData.getManager());
+            dao.insert(new Credit(selectedPerson,100,9999,999,LocalDate.of(1986, 10, 10),LocalDate.of(1986, 10, 10),"валюта"));
+            mdData.stopEM();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING,"Выберете клиента");
+            alert.show();
+        }
     }
+
+//    public Person getPerson(int i) {
+//        mdData.startEM();
+//        PersonDao dao = new PersonDao(mdData.getManager());
+//        Person person = dao.get(i);
+//        mdData.stopEM();
+//        return person;
+//    }
 
 }
 
